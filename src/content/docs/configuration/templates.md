@@ -1,6 +1,6 @@
 ---
 title: Templates Configuration
-description: Add a brief description of the Templates Configuration page here
+description: This guide will help you configure the templates in Daytona dashboard.
 sidebar:
   label: Templates
 ---

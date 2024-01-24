@@ -1,6 +1,6 @@
 ---
 title: Teams
-description:
+description: Configure teams settings
 sidebar:
   label: Teams
 ---

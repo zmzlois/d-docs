@@ -50,12 +50,16 @@ Although our templates includes Git, you will still need to authenticate with yo
 
 1. Install Github CLI
 
-- While you are connected to a running workspace, in your editor's terminal, run
+- While you are connected to a running workspace, in your editor's terminal, run:
 
 ```bash
 sudo apt update
 sudo apt install gh
 ```
+
+- These commands install Github CLI, you can see the official reference at [here](https://github.com/cli/cli/blob/trunk/docs/install_linux.md#official-sources)
+
+2. Authenticate using Github CLI
 
 - Then in your terminal, run the command below and select provided options based on your requirement.
 
@@ -63,13 +67,9 @@ sudo apt install gh
 gh auth login
 ```
 
-2. Authenticate using Github CLI
+- When you are asked for _preferred protocol for Git operation_, choose **SSH**. This command will will you either generate a new SSH key to upload to your Github account or upload your current public key based on your selection.
 
-- When you are asked for _preferred protocol for Git operation_, choose **SSH**. This command will will you either generate a new SSH key to upload to your Github account or upload your current public key.
-
-```bash
-gh auth login
-```
+- After finishing the authentication process, you should be able to push and pull to your repository.
 
 </content>
   </details>
@@ -77,8 +77,10 @@ gh auth login
 <details class="idp-details">
 <summary>Resolving merge conflicts</summary>
 <content>
+In a scenario you created the repository on Github with license file, README.md and other initial configuration. You push/pull might fail and you are prompted for resolving merge conflicts. You can run this command to allow unrelated histories from remote to be merged with local files.
 
 ```bash
+git merge --allow-unrelated-histories origin/main
 
 ```
 
@@ -100,14 +102,49 @@ Our default templates includes different based image and languages.
 <dt>Ubuntu</dt>
 <dd>Create a workspace using Ubuntu as base image with Git and other common utilities installed</dd>
 <dt>C/C++</dt>
-<dd>Create a workspace to develop C++ application on Linux, a template includes Debian C++ build tools. 
+<dd>Create a workspace to develop C++ application on Linux, a template includes Debian C++ build tools.
 <dt>
+<dt>C# (.NET)</dt>
+<dd>Create a workspace with all needed SDKs, extensions and dependencies to build C# and .NET based application.</dd>
+<dt>Go</dt>
+<dd>Create a workspace with appropriate runtime arguments, Go, common tools, extensions and dependencies to develop Go based applications.</dd>
+<dt>Java</dt>
+<dd>Create a workspace includes JDK and Java extensions to develop Java application</dd>
+<dt>Node.js</dt>
+<dd>Create a workspace includes Node.js, eslint, nvm and yarn to develop Node.js based applications.</dd>
+<dt>PHP</dt>
+<dd>Create a workspace with needed tools, extensions and dependencies to build PHP based applications.</dd>
+<dt>Python</dt>
+<dd>Create a workspace to build Python application with Python3.</dd>
+<dt>Ruby</dt>
+<dd>Create a workspace with essential utilities to build Ruby based applications.</dd>
+<dt>Rust</dt>
+<dd>Create a workspace with appropriate runtime arguments and everything you need to build Rust based application.</dd>
+<dt>TypeScript</dt>
+<dd>Create a workspace includes Node.js, eslint, nvim, yarn and Typescript compiler to build Node.js based applications in Typescript.</dd>
 </dl>
+
+:::note
+If you accidentally removed all the default templates and want to add it back, or wanted to take a reference of the default templates, the configuration is [here](https://raw.githubusercontent.com/daytonaio-templates/index/main/templates.json).
 
 ## Customising templates
 
-Templates are an array of JSON objects. They construct the textual and visual appearance of the templates on your dashboards.
+Templates are **an array of JSON objects** includes certain properties. They construct the textual and visual appearance of the templates on your dashboards. The simpliest example of a templates includes below properties:
+
+```json
+[
+  {
+    "name": "C# (.NET)",
+    "description": "Develop C# and .NET based applications. Includes all needed SDKs, extensions, and dependencies.",
+    "gitUrl": "https://github.com/daytonaio-templates/dotnet",
+    "imageUrl": "https://raw.githubusercontent.com/daytonaio-templates/index/main/img/dotnet.png",
+    "rawReadmeUrl": "https://raw.githubusercontent.com/daytonaio-templates/dotnet/main/README.md"
+  }
+]
+```
 
 ## How to deploy with custom templates
 
-## Creating workspace based on templates
+### Deploy with installer script
+
+### Deploy on Google Cloud Platform

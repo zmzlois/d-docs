@@ -43,7 +43,7 @@ git remote add origin `https://github.com/user/repo.git`
 git config --list
 ```
 
-<details open>
+<details class="idp-details">
 <summary>Example: Connect to Github using Github CLI</summary>
 <content>
 Although our templates includes Git, you will still need to authenticate with your Git provider to push and pull to your remote repository. We are using Github as an example below.
@@ -67,17 +67,24 @@ sudo apt install gh
 gh auth login
 ```
 
-- When you are asked for _preferred protocol for Git operation_, choose **SSH**. This command will will you either generate a new SSH key to upload to your Github account or upload your current public key based on your selection.
+- When you are asked for _preferred protocol for Git operation_, choose **SSH**.
+
+- This command will will you either generate a new SSH key to upload to your Github account or upload your current public key based on your selection.
 
 - After finishing the authentication process, you should be able to push and pull to your repository.
 
-</content>
-  </details>
+- Your authenticating status will persist within this workspace.
 
+</content>
+</details>
+
+<!-- TODO: consider deleting this and let user handle the conflicts themselves -->
 <details class="idp-details">
 <summary>Resolving merge conflicts</summary>
 <content>
-In a scenario you created the repository on Github with license file, README.md and other initial configuration. You push/pull might fail and you are prompted for resolving merge conflicts. You can run this command to allow unrelated histories from remote to be merged with local files.
+In a scenario you created the repository on Github with license file, README.md and other initial configuration.
+
+You push/pull might fail and you are prompted for resolving merge conflicts. You can run this command to allow unrelated histories from remote to be merged with local files.
 
 ```bash
 git merge --allow-unrelated-histories origin/main
@@ -126,10 +133,17 @@ Our default templates includes different based image and languages.
 
 :::note
 If you accidentally removed all the default templates and want to add it back, or wanted to take a reference of the default templates, the configuration is [here](https://raw.githubusercontent.com/daytonaio-templates/index/main/templates.json).
+:::
+
+<hr/>
 
 ## Customising templates
 
-Templates are **an array of JSON objects** includes certain properties. They construct the textual and visual appearance of the templates on your dashboards. The simpliest example of a templates includes below properties:
+Templates are **an array of JSON objects** includes certain properties. They construct the textual and visual appearance of the templates on your dashboards.
+
+1. Content of a template
+
+The simpliest example of a templates includes below properties:
 
 ```json
 [
@@ -143,8 +157,76 @@ Templates are **an array of JSON objects** includes certain properties. They con
 ]
 ```
 
+You template will need to be:
+
+- **Hosted publicly**, be it git provider or else where.
+- An **array** of objects accessible as **raw content**.
+- Each objects needs to include below properties and each properties are **case sensitive**:
+
+<dl>
+<dt>name</dt>
+<dd>Name of the template being displayed on dashboard</dd>
+<dt>description</dt>
+<dd>The description of the template. This property won't be displayed it'd be helpful to take notes when you are creating them.
+<!-- TODO: try template created in one repo and see if the problem with setting remote origin URL persists.  -->
+<dt>gitUrl</dt>
+<dd>The content of this template.</dd>
+<dt>imageUrl</dt>
+<dd>An image displayed on the template when it is deployed to dashboard. It supports JPG, JPEG, SVG and PNG formats. It can be a link to any public image.</dd>
+<dt>rawReadmeUrl</dt>
+<dd>Textual content being displayed on the pop up dialog after you click on the selected template button on dahsboard. Helping users understand the content of the template. It has to be the raw content of a markdown file. </dd>
+</dl>
+
+2. (Optional) Obtaining raw content from public repository
+
+You can obtain raw content easily if the images, content of template are available publicly with your Git provider.
+
+We will be using README.me file as an example. You can do the same for other content.
+
+##### Obtain raw content link from Github
+
+- Open a public repository on GitHub in browser. In your repository's list of files, select the **README.md** file.
+
+- In the upper right corner of the file view, click **Raw** to see the raw content.
+
+- **Copy the URL** in browser. This link is a raw content link suitable for the value of _rawReadmeUrl_ field.
+
+##### Obtain raw content link from Gitlab
+
+- Open a public repository on GitLab in the browser. In your repository's list of files, select the **README.md** file.
+
+- In the upper right corner of the file view, click on **Open Raw** to see the raw content (hover to see **Open Raw**, the button is in between the _Download_ button and _Copy file content_ button).
+
+- **Copy the URL** in the browser. This link is a raw content link suitable for the value of _rawReadmeUrl_ field.
+
+##### Obtain raw content link from BitBucket
+
+- Open a public repository on BitBucket in the browser. In your repository's list of files, select the **README.md** file.
+- In the upper right corner of the file view, click on the **`𓈓`** button next to _Edit_ and select **Open raw**.
+
+- **Copy the URL** in the browser. This link is a raw content link suitable for the value of the _rawReadmeUrl_ field.
+
+:::danger
+If your custom template is not an array object it might fail to deploy. You can use [this template](https://raw.githubusercontent.com/daytonaio-templates/index/main/templates.json) as a reference.
+:::
+
+<hr/>
+
 ## How to deploy with custom templates
 
-### Deploy with installer script
+You can build your own template within your organization to suit your development needs.
 
-### Deploy on Google Cloud Platform
+### Deploy custom template using Daytona installer
+
+After you clone the [Daytona installer](http://github.com/daytonaio/installer) to your virtual machine, you can edit the shell script content to customize your template.
+
+1. Open the shell of your virtual machine
+
+- You can achieve this step by **SSH** into your virtual machine within your terminal.
+- You can also open the shell of your virtual machine if your cloud provider supports so.
+
+2. Editing shell script
+
+-
+
+### Deploy custom template on the Google Cloud Platform
